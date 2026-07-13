@@ -1,8 +1,8 @@
 # --- Stage 1: Build Frontend (JavaScript) ---
 FROM ghcr.io/gleam-lang/gleam:v1.8.0-node AS client-builder
 
-# Install JS bundler/tools if needed by lustre_dev_tools
 WORKDIR /app
+# Copy shared code and client
 COPY shared ./shared
 COPY client ./client
 
@@ -30,10 +30,12 @@ RUN gleam export erlang-shipment
 FROM erlang:27-alpine AS runner
 
 WORKDIR /app
-# Copy exported release from builder stage
+# Copy exported release contents directly into /app
 COPY --from=server-builder /app/server/build/erlang-shipment ./
 
+# SnapDeploy will read this environment variable automatically
 ENV PORT=8080
 EXPOSE 8080
 
-CMD ["./entrypoint.sh", "run"]
+# FIX: Gleam names this file entry.sh
+CMD ["./entry.sh", "run"]
