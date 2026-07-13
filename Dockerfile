@@ -33,4 +33,6 @@ COPY --from=builder /app/server/build/erlang-shipment ./
 ENV PORT=8080
 EXPOSE 8080
 
-CMD ["./entrypoint.sh", "run"]
+# Correct
+ENTRYPOINT ["/bin/sh", "./entrypoint.sh"]
+CMD ["run"]
