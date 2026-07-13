@@ -1,5 +1,5 @@
 # --- Stage 1: Build Frontend & Backend Together (2-in-1 Builder) ---
-FROM ghcr.io/gleam-lang/gleam:v1.8.0-erlang-alpine AS builder
+FROM ghcr.io/gleam-lang/gleam:v1.14.0-erlang-alpine AS builder
 
 # Install Node.js and npm via alpine package manager for Lustre compilation
 RUN apk add --no-cache nodejs npm
